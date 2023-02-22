@@ -1,10 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home"
-import Log from "./pages/Log"
-import Info from "./pages/Info"
-import NotFound from "./pages/NotFound"
+
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
+import Home from "./pages/Home";
+import Log from "./pages/Log";
+import Info from "./pages/Info";
+import NotFound from "./pages/NotFound";
    
 function Main() {
     return (
@@ -17,10 +23,8 @@ function Main() {
             </Routes>
         </Router>
     );
-}
+};
    
 export default Main;
    
-if (document.getElementById('app')) {
-    ReactDOM.render(<Main />, document.getElementById('app'));
-}
+createRoot(document.getElementById('app')).render(<Main />);
