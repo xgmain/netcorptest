@@ -45,8 +45,8 @@ export default class Home extends Component{
                                         <td>{value.name}</td>
                                         <td>{value.is_agidrive}</td>
                                         <td>
-                                            <Link to="/log/115"className="btn btn-primary btn-sm">Log count</Link>
-                                            <Link to="/info/115" className="btn btn-primary btn-sm ms-2">Last info</Link>
+                                            <Link to="/log" className="btn btn-primary btn-sm">Log count</Link>
+                                            <Link to="/info" className="btn btn-primary btn-sm ms-2">Last info</Link>
                                         </td>
                                     </tr>  
                                 )
