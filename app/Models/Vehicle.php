@@ -17,7 +17,7 @@ class Vehicle extends Model
 
     public function scopeActive(Builder $query)
     {
-        return $query->whereNotNull('deleted_at');
+        return $query->whereNull('deleted_at');
     }
 
     public function scopeAgidriveFirst(Builder $query)

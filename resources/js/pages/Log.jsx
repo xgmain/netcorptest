@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
+import withRouter from '../withRouter';
   
-export default class Log extends Component{
+class Log extends Component{
 
     constructor(props){
         super(props);
         this.state = {
+            id: this.props.params.id,
             logs: [],
             loading:true
         };
     }
   
     async getLogs(){
-      const res = await axios.get('/api/v1/agilogs/115/logCount?latest=true');
-      this.setState({loading:false, logs: res.data.data});
+        const res = await axios.get(`/api/v1/agilogs/${this.state.id}/logCount?latest=true`);
+        this.setState({loading:false, logs: res.data.data});
     };
 
     componentDidMount(){
@@ -41,8 +43,8 @@ export default class Log extends Component{
                                 this.state.logs.map((value, index) =>
                                     <tr key={index}>
                                         <td scope="row">{value.id}</td>
-                                        <td>{value.name}</td>
-                                        <td>{value.localTime}</td>
+                                        <td>{value.vehicle_name}</td>
+                                        <td>{value.year}-{value.month}-{value.day}</td>
                                         <td>{value.count}</td>
                                     </tr>  
                                 )
@@ -54,3 +56,5 @@ export default class Log extends Component{
         )
     }
 }
+
+export default withRouter(Log);

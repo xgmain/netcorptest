@@ -35,7 +35,7 @@ class AgiLogController extends Controller
             $logs = $logs->orderBy('local_time', 'DESC');
         }
 
-        return AgiLogResource::collection($logs->paginate(10));
+        return AgiLogResource::collection($logs->get());
     }
 
     /**

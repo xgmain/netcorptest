@@ -30,6 +30,6 @@ class VehicleController extends Controller
 
         // $vehicle = $vehicle->where('is_agidrive', 'on');
 
-        return VehicleResource::collection($vehicles->paginate(10));
+        return VehicleResource::collection($vehicles->get());
     }
 }

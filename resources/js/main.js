@@ -8,8 +8,8 @@ function Main() {
     return (
         <Routes>
             <Route path='/' element={ <Home /> } />
-            <Route path='/log' element={ <Log /> } />
-            <Route path='/info' element={ <Info /> }/>
+            <Route path='/log/:id' element={ <Log /> } />
+            <Route path='/info/:id' element={ <Info /> }/>
         </Routes>
     )
 }
