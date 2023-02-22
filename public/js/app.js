@@ -9701,7 +9701,7 @@ function Info() {
     className: "container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
     className: "text-center mt-5 mb-3"
-  }, "Info Page")));
+  }, "Last Info")));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Info);
 
@@ -9730,7 +9730,7 @@ function Log() {
     className: "container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
     className: "text-center mt-5 mb-3"
-  }, "Log Page")));
+  }, "Log Count")));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Log);
 

@@ -8,7 +8,7 @@ function Log() {
         <Layout>
             <Header/>
             <div className="container">
-                <h2 className="text-center mt-5 mb-3">Log Page</h2>
+                <h2 className="text-center mt-5 mb-3">Log Count</h2>
             </div>
         </Layout>
     );

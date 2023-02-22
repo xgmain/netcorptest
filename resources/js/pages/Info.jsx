@@ -8,7 +8,7 @@ function Info() {
         <Layout>
             <Header/>
             <div className="container">
-                <h2 className="text-center mt-5 mb-3">Info Page</h2>
+                <h2 className="text-center mt-5 mb-3">Last Info</h2>
             </div>
         </Layout>
     );
