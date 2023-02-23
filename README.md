@@ -1,13 +1,15 @@
 <h1>NetCorp Test</h1>
 
 ## Installation
-
+```bash
  - rname .env.example to .env
  - composer install
  - php artisan migrate:fresh --seed
  - npm install
- - npm run watch
 
+ - npm run watch
+ - php artisan serve
+```
 ## Tech stack
 
  - laravel, reactJs, mysql, bootstrap css
