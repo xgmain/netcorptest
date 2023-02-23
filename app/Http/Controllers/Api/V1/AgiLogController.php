@@ -8,6 +8,7 @@ use App\Models\AgiLog;
 use App\Http\Resources\AgiLogResource;
 use App\Http\Resources\AgiLogAddressResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Repositories\AgiLogRepository;
 
 class AgiLogController extends Controller
 {
@@ -19,23 +20,11 @@ class AgiLogController extends Controller
      */
     public function logCount(int $id, Request $request): ResourceCollection
     {
-        $logs = AgiLog::where('vehicle_id', $id)
-            ->selectRaw('
-                year(local_time) year, 
-                monthname(local_time) month, 
-                day(local_time) day, 
-                count(*) count, 
-                vehicle_id id,
-                (select name from vehicles where id = ?) vehicle_name,
-                local_time
-            ', [$id])
-            ->groupBy('year', 'month', 'day');
-
-        if ($request->input('latest')) {
-            $logs = $logs->orderBy('local_time', 'DESC');
+        try {
+           return AgiLogResource::collection((new AgiLogRepository)->logCount($id, $request));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
         }
-
-        return AgiLogResource::collection($logs->get());
     }
 
     /**
@@ -46,18 +35,10 @@ class AgiLogController extends Controller
      */
     public function lastInfo(int $id): AgiLogAddressResource
     {
-        $log = AgiLog::where('vehicle_id', $id)
-            ->selectRaw('vehicle_id, local_time, lat, lng, speed, direction,
-                (select name from vehicles where id = ?) vehicle_name
-                ', [$id])
-            ->last();
-
-        $data = $log->first();
-
-        if (is_null($data)) {
-            throw new \Exception('Data not found');
-        }
-
-        return new AgiLogAddressResource($data);
+        try {
+            return new AgiLogAddressResource((new AgiLogRepository)->lastInfo($id));
+         } catch (\Exception $e) {
+             dd($e->getMessage());
+         }
     }
 }
