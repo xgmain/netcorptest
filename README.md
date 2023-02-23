@@ -5,6 +5,7 @@
  - rname .env.example to .env
  - composer install
  - php artisan migrate:fresh --seed
+ - npm install
  - npm run watch
 
 ## Tech stack
