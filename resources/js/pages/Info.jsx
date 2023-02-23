@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import withRouter from '../withRouter';
+import BingMapsReact from "bingmaps-react";
   
 class Info extends Component{
 
@@ -63,6 +64,25 @@ class Info extends Component{
                         </tbody> 
                     </table>
                     <div>
+                        <BingMapsReact
+                            bingMapsKey="AqrpK_b1lckZjNLrnOsEpLjuqsD0W43B9KnoHzITuX1U65qtzs6t_ermmJ38QnlK"
+                            height="500px"
+                            mapOptions={{
+                                navigationBarMode: "square",
+                            }}
+                            pushPins={[
+                                {
+                                    center: {
+                                        latitude: this.state.log.lat,
+                                        longitude: this.state.log.lng,
+                                    },
+                                    options: {
+                                        title: "vehicle location",
+                                    },
+                                }
+                            ]}
+                            viewOptions={{ center: { latitude: this.state.log.lat, longitude: this.state.log.lng } }}
+                        />
                     </div>
                 </Layout>
             );

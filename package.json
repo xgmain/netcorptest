@@ -23,6 +23,8 @@
         "sass": "^1.56.1"
     },
     "dependencies": {
+        "bingmaps-react": "^1.2.10",
+        "core-js": "^3.28.0",
         "react-router-dom": "^6.8.1"
     }
 }
