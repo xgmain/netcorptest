@@ -49,10 +49,14 @@ class AgiLogController extends Controller
         $log = AgiLog::where('vehicle_id', $id)
             ->selectRaw('vehicle_id, local_time, lat, lng, speed, direction,
                 (select name from vehicles where id = ?) vehicle_name
-            ', [$id])
+                ', [$id])
             ->last();
 
         $data = $log->first();
+
+        if (is_null($data)) {
+            throw new \Exception('Data not found');
+        }
 
         return new AgiLogAddressResource($data);
     }

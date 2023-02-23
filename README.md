@@ -22,7 +22,7 @@
 
 ## Issue
 
- - I find the log records on database is only lasts a month, so I change to requirement myself, to list against day not month.
+ - I find the log records on database is only for one month, so I change to requirement myself, listing against a day not a month.
 
 ## To do
 

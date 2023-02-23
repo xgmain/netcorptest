@@ -16,8 +16,15 @@ class Info extends Component{
     }
   
     async getLog(){
-        const res = await axios.get(`/api/v1/agilogs/${this.state.id}/lastInfo`);
-        this.setState({loading:false, log: res.data.data});
+        const res = await axios
+            .get(`/api/v1/agilogs/${this.state.id}/lastInfo`)
+            .then( res => {
+                this.setState({loading:false, log: res.data.data});
+                console.log(res);
+            })
+            .catch(error => {
+                // console.log(error.response.data.error)
+            });
     }
 
     componentDidMount(){

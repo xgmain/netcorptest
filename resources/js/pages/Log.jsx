@@ -9,7 +9,7 @@ class Log extends Component{
         super(props);
         this.state = {
             id: this.props.params.id,
-            logs: [],
+            logs: null,
             loading:true
         };
     }
@@ -24,11 +24,18 @@ class Log extends Component{
     }
 
     render(){
-        if (this.state.logs.length === 0) {
+        if (this.state.logs === null) {
             return (
                 <Layout>
                     <h2 className="text-center mt-5 mb-3">Log Count</h2>
                     <div>Fetching data, please wait..</div>
+                </Layout>
+            );
+        } else if (this.state.logs.length === 0) {
+            return (
+                <Layout>
+                    <h2 className="text-center mt-5 mb-3">Log Count</h2>
+                    <div>There is not data found on this vehicle</div>
                 </Layout>
             );
         } else {

@@ -9813,19 +9813,24 @@ var Info = /*#__PURE__*/function (_Component) {
     key: "getLog",
     value: function () {
       var _getLog = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _this2 = this;
         var res;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/v1/agilogs/".concat(this.state.id, "/lastInfo"));
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/v1/agilogs/".concat(this.state.id, "/lastInfo")).then(function (res) {
+                _this2.setState({
+                  loading: false,
+                  log: res.data.data
+                });
+                console.log(res);
+              })["catch"](function (error) {
+                // console.log(error.response.data.error)
+              });
             case 2:
               res = _context.sent;
-              this.setState({
-                loading: false,
-                log: res.data.data
-              });
-            case 4:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -9993,7 +9998,7 @@ var Log = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       id: _this.props.params.id,
-      logs: [],
+      logs: null,
       loading: true
     };
     return _this;
@@ -10033,13 +10038,22 @@ var Log = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.logs.length === 0) {
+      if (this.state.logs === null) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
             className: "text-center mt-5 mb-3",
             children: "Log Count"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             children: "Fetching data, please wait.."
+          })]
+        });
+      } else if (this.state.logs.length === 0) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+            className: "text-center mt-5 mb-3",
+            children: "Log Count"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            children: "There is not data found on this vehicle"
           })]
         });
       } else {
