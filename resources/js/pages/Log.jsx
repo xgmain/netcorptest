@@ -17,16 +17,23 @@ class Log extends Component{
     async getLogs(){
         const res = await axios.get(`/api/v1/agilogs/${this.state.id}/logCount?latest=true`);
         this.setState({loading:false, logs: res.data.data});
-    };
+    }
 
     componentDidMount(){
         this.getLogs();
     }
 
     render(){
-        return (
-            <Layout>
-                <div className="container">
+        if (this.state.logs.length === 0) {
+            return (
+                <Layout>
+                    <h2 className="text-center mt-5 mb-3">Log Count</h2>
+                    <div>Fetching data, please wait..</div>
+                </Layout>
+            );
+        } else {
+            return (
+                <Layout>
                     <h2 className="text-center mt-5 mb-3">Log Count</h2>
                     <table className = 'table' >
                         <thead>
@@ -51,9 +58,9 @@ class Log extends Component{
                             }
                         </tbody> 
                     </table>
-                </div>
-            </Layout>
-        )
+                </Layout>
+            );
+        }
     }
 }
 
