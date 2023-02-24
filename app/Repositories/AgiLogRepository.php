@@ -57,8 +57,7 @@ class AgiLogRepository
         $response = $logs->get();
 
         if ($response->count() === 0) {
-            throw new \Exception('Data not found');
-            return false;
+            throw new \Exception('Data not found', 404);
         }
 
         return $response;
@@ -98,8 +97,7 @@ class AgiLogRepository
         $response = $log->first();
 
         if (!$response) {
-            throw new \Exception('Data not found');
-            return false;
+            throw new \Exception('Data not found', 404);
         }
 
         return $response; 

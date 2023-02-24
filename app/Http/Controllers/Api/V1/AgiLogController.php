@@ -18,12 +18,12 @@ class AgiLogController extends Controller
      * @param int $id
      * @return ResourceCollection $collection
      */
-    public function logCount(int $id, Request $request): ResourceCollection
+    public function logCount(int $id, Request $request)
     {
         try {
-           return AgiLogResource::collection((new AgiLogRepository)->logCount($id, $request));
+            return AgiLogResource::collection((new AgiLogRepository)->logCount($id, $request));
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], $e->getcode());
         }
     }
 
@@ -33,12 +33,12 @@ class AgiLogController extends Controller
      * @param int $id
      * @return AgiLogResource $reourse
      */
-    public function lastInfo(int $id): AgiLogAddressResource
+    public function lastInfo(int $id)
     {
         try {
             return new AgiLogAddressResource((new AgiLogRepository)->lastInfo($id));
-         } catch (\Exception $e) {
-             dd($e->getMessage());
-         }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getcode());
+        }
     }
 }

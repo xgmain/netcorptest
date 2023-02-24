@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import axios from 'axios';
 import withRouter from '../withRouter';
 import BingMapsReact from "bingmaps-react";
+import { Link } from "react-router-dom";
   
 class Info extends Component{
 
@@ -12,18 +13,26 @@ class Info extends Component{
             id: this.props.params.id,
             log: null,
             loading:true,
+            error: null
         };
     }
   
     async getLog(){
-        const res = await axios
+        await axios
             .get(`/api/v1/agilogs/${this.state.id}/lastInfo`)
             .then( res => {
-                this.setState({loading:false, log: res.data.data});
-                console.log(res);
+                this.setState(() => ({
+                    loading:false, 
+                    log: res.data.data
+                }));
             })
-            .catch(error => {
-                // console.log(error.response.data.error)
+            .catch(err => {
+                this.setState(() => ({
+                    error: {
+                        status: err.response.status,
+                        message: err.response.data.message
+                    }
+                }));
             });
     }
 
@@ -32,68 +41,83 @@ class Info extends Component{
     }
 
     render(){
-        if (this.state.log === null) {
-            return (
-                <Layout>
-                    <h2 className="text-center mt-5 mb-3">Last Info</h2>
-                    <div>Fetching data, please wait..</div>
-                </Layout>
-            );
-        } else {
-            return (
-                <Layout>
-                    <h2 className="text-center mt-5 mb-3">Last Info</h2>
-                    <table className = 'table' >
-                        <thead>
-                            <tr>
-                            <th scope='col'>ID</th> 
-                            <th scope='col'>Name</th>
-                            <th scope='col'>Local Time</th>
-                            <th scope='col'>Latitude</th>
-                            <th scope='col'>Longitude</th>
-                            <th scope='col'>Location</th>
-                            <th scope='col'>Speed</th>
-                            <th scope='col'>Direction</th>
-                            </tr>
-                        </thead>
-                    
-                        <tbody>
-                            <tr>
-                                <td scope="row">{this.state.log.vehicle_id}</td>
-                                <td>{this.state.log.vehicle_name}</td>
-                                <td>{this.state.log.local_time}</td>
-                                <td>{this.state.log.lat}</td>
-                                <td>{this.state.log.lng}</td>
-                                <td>{this.state.log.address}</td>
-                                <td>{this.state.log.speed}</td>
-                                <td>{this.state.log.direction}</td>
-                            </tr>  
-                        </tbody> 
-                    </table>
-                    <div>
-                        <BingMapsReact
-                            bingMapsKey="AqrpK_b1lckZjNLrnOsEpLjuqsD0W43B9KnoHzITuX1U65qtzs6t_ermmJ38QnlK"
-                            height="500px"
-                            mapOptions={{
-                                navigationBarMode: "square",
-                            }}
-                            pushPins={[
-                                {
-                                    center: {
-                                        latitude: this.state.log.lat,
-                                        longitude: this.state.log.lng,
-                                    },
-                                    options: {
-                                        title: "vehicle location",
-                                    },
-                                }
-                            ]}
-                            viewOptions={{ center: { latitude: this.state.log.lat, longitude: this.state.log.lng } }}
-                        />
-                    </div>
-                </Layout>
-            );
+        // console.log(this.state)
+        const log = this.state.log;
+        const error = this.state.error 
+        const flag = (error !== null) ? true : false;
+        let content = null;
+        let notification;
+
+        if (log === null) {
+            notification = 'Fetching data, please wait..';
         }
+
+        if (flag) {
+            notification = error.message;
+        }
+
+        if (log) {
+            content = 
+            <div>
+                <table className = 'table' >
+                    <thead>
+                        <tr>
+                        <th scope='col'>ID</th> 
+                        <th scope='col'>Name</th>
+                        <th scope='col'>Local Time</th>
+                        <th scope='col'>Latitude</th>
+                        <th scope='col'>Longitude</th>
+                        <th scope='col'>Location</th>
+                        <th scope='col'>Speed</th>
+                        <th scope='col'>Direction</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                        <tr>
+                            <td scope="row">{log.vehicle_id}</td>
+                            <td>{log.vehicle_name}</td>
+                            <td>{log.local_time}</td>
+                            <td>{log.lat}</td>
+                            <td>{log.lng}</td>
+                            <td>{log.address}</td>
+                            <td>{log.speed}</td>
+                            <td>{log.direction}</td>
+                        </tr>  
+                    </tbody> 
+                </table>
+
+                <BingMapsReact
+                    bingMapsKey="AqrpK_b1lckZjNLrnOsEpLjuqsD0W43B9KnoHzITuX1U65qtzs6t_ermmJ38QnlK"
+                    height="500px"
+                    mapOptions={{
+                        navigationBarMode: "square",
+                    }}
+                    pushPins={[
+                        {
+                            center: {
+                                latitude: log.lat,
+                                longitude: log.lng,
+                            },
+                            options: {
+                                title: "vehicle location",
+                            },
+                        }
+                    ]}
+                    viewOptions={{ center: { latitude: log.lat, longitude: log.lng } }}
+                />
+
+            </div>;
+        }
+
+        return (
+            <Layout>
+                <h2 className="text-center mt-5 mb-3">Last Info</h2>
+                <div><Link to="/" className="btn btn-primary btn-sm">Go back</Link></div>
+                <div>{ notification }</div>
+                { content }
+            </Layout>
+        );
     }
 }
 
