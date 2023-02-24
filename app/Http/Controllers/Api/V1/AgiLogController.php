@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\AgiLog;
 use App\Http\Resources\AgiLogResource;
 use App\Http\Resources\AgiLogAddressResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;

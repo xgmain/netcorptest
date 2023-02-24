@@ -32,7 +32,4 @@
 
 ## To do
 
- - unit test
  - better UI
- - better doc
- - exception handle
