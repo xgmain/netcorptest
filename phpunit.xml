@@ -18,14 +18,20 @@
         </include>
     </coverage>
     <php>
-        <env name="APP_ENV" value="testing"/>
+        <!-- <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>
-        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
-        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="TELESCOPE_ENABLED" value="false"/> -->
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_HOST" value="203.174.159.97"/>
+        <env name="DB_DATABASE" value="test05"/>
+        <env name="DB_USERNAME" value="test05" />
+        <env name="DB_PORT" value="8888" />
+        <env name="DB_PASSWORD" value="D3vT3st@0o" />
     </php>
 </phpunit>

@@ -2,7 +2,7 @@
 
 ## Installation
 ```bash
- - rname .env.example to .env
+ - mv .env.example .env
  - composer install
  - php artisan migrate:fresh --seed
  - npm install
@@ -23,6 +23,12 @@
 ## Issue
 
  - I find the log records on database is only for one month, so I change to requirement myself, listing against a day not a month.
+
+## Test
+```bash
+ - php artisan test
+ ```
+
 
 ## To do
 
